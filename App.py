@@ -51,7 +51,7 @@ class AgeCNN(nn.Module):
 
 
 def load_state(path):
-    return torch.load(path, weights_only=True)
+    return torch.load(path, weights_only=True,map_location='cpu')
 
 
 with open("mean_std.json", "r") as file:
@@ -91,5 +91,5 @@ if uploaded_file is not None:
             prediction = torch.round(model(transformed_image)).numpy()
             st.metric(
                 "Predicted Age",
-                f"{int(prediction.item())} Years",
+                f"{round(prediction.item())} Years",
             )
